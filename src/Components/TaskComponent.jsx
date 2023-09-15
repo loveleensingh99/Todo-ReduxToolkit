@@ -1,23 +1,32 @@
 import React, { useState } from 'react'
 import ClearAllButton from './ClearAllButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, removeTask } from '../store/TaskSlice';
+import appStore from '../store/store';
 
-const UserDetails = () => {
+const TaskComponent = () => {
 
+    const dispatch = useDispatch()
+
+
+    const data = useSelector((appStore) => appStore.tasks);
     const [todos, setTodos] = useState([]);
     const [task, setTask] = useState('');
 
     const addTodo = () => {
+        console.log('asd');
         if (task.trim() !== '') {
-            setTodos([...todos, task]);
+            dispatch(addTask(task));
+            // setTodos([...todos, task]);
             setTask('');
+            console.log('Done');
         }
     };
 
     const removeTodo = (index) => {
-        const newTodos = todos.filter((_, i) => i !== index);
-        setTodos(newTodos);
-    };
+        dispatch(removeTask(index))
 
+    };
     return (
         <>
             <div className="container px-24 mx-auto mt-5">
@@ -38,7 +47,7 @@ const UserDetails = () => {
                     </button>
                 </div>
                 <ul>
-                    {todos.map((todo, index) => (
+                    {data.map((todo, index) => (
                         <li
                             key={index}
                             className="flex items-center justify-between px-3 py-2 mb-2 border border-gray-300 rounded"
@@ -55,9 +64,10 @@ const UserDetails = () => {
                 </ul>
                 <hr />
                 <ClearAllButton />
+
             </div>
         </>
     )
 }
 
-export default UserDetails
+export default TaskComponent

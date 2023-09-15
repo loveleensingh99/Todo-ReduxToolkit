@@ -1,5 +1,6 @@
 import "./App.css";
-import UserDetails from "./Components/UserDetails";
+import TaskComponent from "./Components/TaskComponent";
+import UserDetails from "./Components/TaskComponent";
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
       <div className="">
         <div className="">
 
-          <UserDetails />
+          <TaskComponent />
         </div>
       </div>
 
